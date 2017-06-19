@@ -1,0 +1,18 @@
+{
+  "name": "webtpl",
+  "version": "1.0.0",
+  "description": "web developer scaffold\u001b[H\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[B\u001b[C\u001b[C\u001b[B\u001b[B\u001b[B\u001b[B\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Czjzx\u001b[F\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[B\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C",
+  "main": "fis-conf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "zjzx"
+  ],
+  "author": "wzh",
+  "license": "ISC",
+  "devDependencies": {
+    "fis-parser-jade": "^0.0.12",
+    "iview": "^2.0.0-rc.13"
+  }
+}

@@ -1,0 +1,74 @@
+@import './common/config.scss';
+@import "./icon.scss";
+@import "./lay_header.scss";
+@import "./lay_aside.scss";
+@import "./lay_content.scss";
+@import "./lay_map.scss";
+
+v-cloak {
+  display: none;
+}
+html,body{
+  overflow: hidden;
+  min-width: 1000px;
+}
+#vue-contaniner{
+  height: 100%;
+}
+//*******总体布局******//
+// 头部
+.lay_header {
+  width: calc(100% - 200px);
+  box-sizing: border-box;
+  height: 50px;
+  min-width: 750px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  border-bottom: 1px solid #dfdfdf;
+  background-color: #fafafa;
+  z-index: 2;
+}
+.lay_map{
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+}
+
+// 左侧菜单栏
+.lay_aside {
+  z-index: 1;
+  background-color: $main_color;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  overflow-y: auto;
+  width: 200px;
+
+  > .aside_logo {
+    overflow: hidden;
+    background-image: url('../../img/aside-bc.png');
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+body .lay_content_max{
+  padding-left: 70px;
+}
+// 主体部分
+.lay_content {
+  height: 100%;
+  width: 100%;
+  min-width: 1200px;
+  padding: 50px 0 0 200px;
+  box-sizing: border-box;
+  >iframe{
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+}

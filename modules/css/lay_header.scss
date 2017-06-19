@@ -1,0 +1,150 @@
+@import "./common/config.scss";
+// 切换左侧样式按钮
+.header_menu{
+  >i{
+    font-size: 25px;
+  }
+    float: left;
+    width: 70px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover{
+        >i{
+          color: $main_color;
+        }
+    }
+}
+body .max_width{
+  width: 100%;
+}
+// 可能存在的筛选条件
+.header_sellist{
+    float: left;
+    height: 100%;
+    font-size: 0;
+    border-left: 1px solid #dfdfdf;
+    >li{
+      cursor: pointer;
+      display: inline-block;
+      width: 90px;
+      height: 100%;
+      border-right: 1px solid #dfdfdf;
+      font-size:   14px;
+      color: #686f7f;
+      line-height: 50px;
+      text-align: center;
+      box-sizing: border-box;
+      &:hover{
+        color: $main_color;
+        background-color: #fff;
+        border-bottom: 3px solid $main_color;
+      }
+    }
+    .header_selected{
+      border-bottom: 3px solid $main_color;
+      color: $main_color;
+      background-color: #fff;
+    }
+}
+// 用户信息相关菜单
+.header_admin{
+  cursor: pointer;
+    float: right;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    >i:first-of-type{
+      font-size: 30px;
+    }
+    >span{
+      color: #000;
+      font-size: 12px;
+      padding: 0 5px;
+    }
+    &:hover{
+      >i:last-of-type{
+        transform: rotate(180deg);
+      }
+      .header_adlist{
+        opacity: 1;
+        z-index: 1;
+      }
+    }
+
+}
+.header_adlist{
+  opacity: 0;
+  z-index: -999;
+  background-color: #fff;
+  position: absolute;
+  width: 100px;
+  right: 0;
+  top: 49px;
+  padding: 13px 6px;
+  border: 1px solid #dfdfdf;
+  box-shadow: 0 3px 3px 0px rgba(0,0,0,0.2);
+  &:after{
+    display: block;
+    content: "";
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    transform: rotate(45deg);
+    border: 1px solid #dfdfdf;
+    top: -7px;
+    right: 15px;
+    z-index: 0;
+    background-color: #fff;
+  }
+  &:before{
+    display: block;
+    content: "";
+    height: 10px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    background-color: #fff;
+    z-index: 1;
+  }
+  >li{
+    cursor: pointer;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    color: #333333;
+    font-size: 12px;
+    >a{
+      color: #333;
+    }
+    &:hover{
+      color: #fff;
+      background-color: $main_color;
+      >a{
+        color: #fff;
+      }
+    }
+  }
+}
+// 快捷退出按钮
+.header_close{
+  >i{
+    font-size: 25px;
+    color: $main_color;
+  }
+  width: 60px;
+  border-left: 1px solid #dfdfdf;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  &:hover{
+    background-color: #fff;
+  }
+}

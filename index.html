@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>zjzx</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./modules/css/common/reset.scss">
+    <link rel="stylesheet" href="./modules/css/index.scss">
+</head>
+
+<body>
+    <div id="vue-contaniner" v-cloak>
+        <!--左侧侧边栏区域-->
+        <aside class="lay_aside trans" :class="{'min_width':maxWidth}">
+            <!--后台logo-->
+            <figure class="aside_logo">
+                <img src="./img/aside-logo.png" alt="logo">
+            </figure>
+            <h2 class="aside_home">
+              <i class="iconfont">&#xe683;</i>
+              <span v-show="!maxWidth">我的首页</span>
+            </h2>
+            <!--菜单列表栏,数据循环遍历而来-->
+            <ul class="aside_list">
+                <li v-for="item,index in menuList"  :class="{one_click:item.click}">
+                    <!--一级标签栏，点击触发下拉事件-->
+                    <h3 class="aside_title" @click.stop="upflod_one(item)">
+                        <i class="iconfont">&#xe672;</i>
+                        <span v-show="!maxWidth">{{item.PermissionName}}</span>
+                        <!-- 存在子元素集时才可出现展开更多样式 -->
+                        <template v-if="item.Childrens.length!==0">
+                            <!--不适用flex布局，形成均匀过度-->
+                            <!--样式变化，展开式变为展开形态，外aside缩小时理应消失-->
+                            <i class="iconfont icon_upflod trans" :class="{'icon_upflod_click':item.click}" v-show="!maxWidth">&#xe647;</i>
+                        </template>
+                    </h3>
+                    <!--二级目录集合-->
+                    <!--是否展开或者收起，-->
+                    <template v-if="item.Childrens.length!==0">
+                        <ul class="aside_slist trans" :class="[{ul_upflod:!item.click},item.class]">
+                            <li v-for="tem,index in item.Childrens" :class="{two_click:tem.click}">
+                                <h3 class="aside_title" @click="upflod_two(item,tem,$event)">
+                                    <i class="iconfont">&#xe610;</i>
+                                    <span>{{tem.PermissionName}}</span>
+                                    <template v-if="tem.Childrens.length!==0">
+                                        <i class="iconfont icon_upflod trans" :class="{'icon_upflod_click':tem.click}">&#xe647;</i>
+                                    </template>
+                                </h3>
+
+
+                                <!--三级目录集合，是否展开或者收起状态-->
+                                <template v-if="tem.Childrens.length!==0">
+                                    <ul class="trans" :class="[{ul_upflod:!tem.click},tem.class]">
+                                        <li v-for="em in tem.Childrens" :class="{three_click:em.click}">
+                                            <h3 class="aside_title" @click="newIframe(tem,em)">
+                                                <span>{{em.PermissionName}}</span>
+                                            </h3>
+                                        </li>
+                                    </ul>
+                                </template>
+                            </li>
+                        </ul>
+                    </template>
+                </li>
+            </ul>
+
+            <div class="aside_company" v-show="!maxWidth">
+              ©2017 中教在线 版权所有
+              京ICP备15060484号-1C
+            </div>
+        </aside>
+        <!--头部区域-->
+        <header class="lay_header trans" :class="{'max_width':maxWidth}">
+            <!--aside样式切换按钮-->
+            <button type="button" class="header_menu" @click="maxcheck()">
+                    <i class="iconfont">&#xe606;</i>
+                </button>
+            <!--可能存在的菜单筛选条件-->
+            <ul class="header_sellist">
+                <li v-for="item in navbar" :class="{header_selected:item.click}" @click="filtrate(item)">{{item.PermissionName}}</li>
+            </ul>
+            <!--退出登录快捷按钮-->
+            <button type="button" class="header_close"><i class="iconfont">&#xe654;</i></button>
+            <!--个人信息-->
+            <div class="header_admin">
+                <i class="iconfont">&#xe601;</i>
+                <span>您好,admin</span>
+                <i class="iconfont  trans">&#xe609;</i>
+                <!--个人信息菜单里表-->
+                <ul class="header_adlist trans">
+                    <li><a href="#">修改密码</a></li>
+                    <li><a href="#">管理中心</a></li>
+                    <li><a href="#">预览网站</a></li>
+                </ul>
+            </div>
+        </header>
+        <!--内容主体部分-->
+        <article class="lay_content trans" :class="{lay_content_max:maxWidth}">
+          <iframe :src=iframeSrc  name="mainIframe"></iframe>
+        </article>
+        <!-- 网站地图 -->
+        <aside class="lay_map">
+          <button class="map_btn trans" @click="mapClick()">
+            <i class="iconfont">&#xe604;</i>
+          </button>
+          <!-- 网站地图 -->
+          <ul class="map_list trans" :class="{map_list_min:mapshow===0}">
+            <h2><i class="iconfont">&#xe63b;</i>导航菜单</h2>
+            <i class="iconfont" @click="mapClick()">&#xe635;</i>
+            <!-- 一级目录 -->
+              <li v-for="item,index in navbar">
+                <h3>{{item.PermissionName}}</h3>
+                <ul>
+                  <!-- 二级目录 -->
+                  <li v-for="tem,ndex in item.Childrens">
+                    <h4 @click="mapfast(index,ndex)">{{tem.PermissionName}}</h4>
+                    <ul>
+                      <!-- 三级目录 -->
+                      <li v-for="em,dex in tem.Childrens">
+                        <h5 @click="mapfast(index,ndex,dex)">{{em.PermissionName}}</h5>
+                        <ul>
+                          <!-- 四级目录 -->
+                          <li v-for="m,ex in em.Childrens">
+                            <h6 @click="mapfast(index,ndex,dex,ex)">{{m.PermissionName}}</h6>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+          </ul>
+        </aside>
+    </div>
+    <script src="./lib/jquery/dist/jquery.min.js"></script>
+    <script src="./lib/vue/dist/vue.js"></script>
+    <script src="./lib/iview/dist/iview.min.js"></script>
+    <script src="./modules/app/index.js"></script>
+</body>
+
+</html>
